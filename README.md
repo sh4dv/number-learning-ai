@@ -12,6 +12,15 @@ Jak działa program:
 3. Oceń ją: `dislike` (źle) lub `like` (idealnie!).
 4. AI zapisuje interakcję i uczy się z Twojego feedbacku.
 
+## 🎓 Jak model się uczy
+
+1. Eksploracja
+Program losuje wyniki, a uzytkownik je poprawia
+2. Model dopasuje wzór
+LinearRegression korzysta z:
+y = a0 + a1 * x + a2 * x^2 + a3 * x^2
+Współczynniki a0..a3 są uczone.
+
 Wbudowane tryby pracy:
 - Tryb standardowy (interaktywny) — oceniasz odpowiedzi AI.
 - `train` — podajesz pary INPUT→OUTPUT i uczysz wzorzec wprost.
