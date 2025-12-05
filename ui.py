@@ -47,6 +47,7 @@ Witaj w interaktywnej aplikacji ML!
   [white]testing_model[/white] - Test modelu (automatyczne testowanie na wzorcu)
   [white]history[/white]        - Ostatnie 10 interakcji
   [white]stats[/white]          - Szczegółowe statystyki i wykres
+    [white]show_formula[/white]   - Pokaż wyuczony wzór
   [white]explain[/white]        - Wyjaśnij ostatnią predykcję
   [white]reset[/white]          - Resetuj dane (zachowaj model)
   [white]retrain[/white]        - Przetrenuję na wszystkich danych
@@ -86,6 +87,7 @@ Witaj w interaktywnej aplikacji ML!
             ("testing_model", "Automatyczne testowanie modelu na wzorcu (AI dostaje losowe liczby)"),
             ("history", "Wyświetl ostatnie 10 interakcji"),
             ("stats", "Pokaż szczegółowe statystyki i postępy"),
+            ("show_formula", "Wypisz wyuczony wzór i współczynniki"),
             ("explain", "Wyjaśnij ostatnią predykcję AI"),
             ("reset", "Resetuj tylko dane (zachowaj model)"),
             ("retrain", "Przetrenuję model na wszystkich danych"),
@@ -315,6 +317,12 @@ Witaj w interaktywnej aplikacji ML!
         """Wyświetla wyjaśnienie ostatniej predykcji."""
         panel = Panel(explanation, title="🔍 Wyjaśnienie Predykcji", 
                      border_style="yellow", box=box.ROUNDED)
+        self.console.print(panel)
+        self.console.print()
+
+    def show_formula(self, formula: str) -> None:
+        """Wyświetla nauczony wzór modelu wraz z współczynnikami."""
+        panel = Panel(formula, title="🧠 Wyuczony Wzór", border_style="green", box=box.ROUNDED)
         self.console.print(panel)
         self.console.print()
     

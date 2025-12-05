@@ -246,3 +246,30 @@ class MLModel:
             'positive_feedback_count': self.positive_feedback_count,
             'success_rate': self.positive_feedback_count / max(1, self.interaction_count)
         }
+
+    def get_formula(self) -> str:
+        """Zwraca sformatowany wzór wielomianu wyuczonego przez model."""
+        if not self.is_fitted:
+            return "Model nie jest jeszcze wytrenowany. Użyj 'train', 'auto_train' albo 'retrain'."
+
+        try:
+            linear = self.model.named_steps['linear']
+            coefs = getattr(linear, 'coef_', None)
+            intercept = getattr(linear, 'intercept_', None)
+        except Exception:
+            return "Nie można pobrać współczynników modelu."
+
+        if coefs is None or intercept is None:
+            return "Brak współczynników - model nie został dopasowany."
+
+        # Uwzględnij cechę bias (coef_[0]) razem z interceptem jako stałą.
+        c0 = float(coefs[0]) if len(coefs) > 0 else 0.0
+        c1 = float(coefs[1]) if len(coefs) > 1 else 0.0
+        c2 = float(coefs[2]) if len(coefs) > 2 else 0.0
+        c3 = float(coefs[3]) if len(coefs) > 3 else 0.0
+        a0 = float(intercept) + c0
+
+        formula = f"y = {a0:.6f} + {c1:.6f}*x + {c2:.6f}*x^2 + {c3:.6f}*x^3"
+        raw_coef = ", ".join(f"{float(v):.6f}" for v in coefs)
+        details = f"intercept = {float(intercept):.6f}\ncoef = [{raw_coef}]"
+        return f"{formula}\n{details}"

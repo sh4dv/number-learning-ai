@@ -85,6 +85,9 @@ class NumberLearningApp:
         
         elif command == 'stats':
             self._show_detailed_statistics()
+
+        elif command == 'show_formula':
+            self._show_formula()
         
         elif command == 'explain':
             explanation = self.model.get_explanation()
@@ -234,6 +237,11 @@ class NumberLearningApp:
             self.model.positive_feedback_count = max(0, self.model.positive_feedback_count - 1)
         
         self.ui.show_success("✅ Interakcja została cofnięta i model przetrenowany!")
+
+    def _show_formula(self) -> None:
+        """Wyświetla wyuczony wzór modelu (Polynomial Regression)."""
+        formula = self.model.get_formula()
+        self.ui.show_formula(formula)
     
     def _list_available_models(self) -> None:
         """Wyświetla listę dostępnych modeli."""
